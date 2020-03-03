@@ -1,0 +1,5 @@
+.env
+build/.env
+Gopkg.lock
+vendor
+.idea
