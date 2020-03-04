@@ -21,11 +21,14 @@ func (u UserService) FindAll() ([]entity.User, error) {
 	return model, err
 }
 
-func (u UserService) FindById(id string) (entity.User, error) {
+func (u UserService) FindById(id string) (*entity.User, error) {
 	var model entity.User
 	model.ID = id
 	err := u.DB.First(&model).Error
-	return model, err
+	if err != nil {
+		return nil, err
+	}
+	return &model, err
 }
 
 func (u UserService) Save(dto user.Dto) (entity.User, error) {
@@ -58,19 +61,16 @@ func (u UserService) Update(id string, updateDto user.Dto) (entity.User, error) 
 	return model, err
 }
 
-func (u UserService) Delete(id string) error {
+func (u UserService) Delete(id string) (bool, error) {
 	var model entity.User
 	model.ID = id
-
-	err := u.DB.Delete(&model).Error
-	if err != nil {
-		return err
+	isExisting, err := u.FindById(id)
+	if isExisting == nil {
+		return false, err
 	}
-	return nil
-}
-
-func (u UserService) Count() (uint, error) {
-	var count uint
-	err := u.DB.Model(entity.User{}).Count(&count).Error
-	return count, err
+	err = u.DB.Delete(&model).Error
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }

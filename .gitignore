@@ -1,5 +1,6 @@
 .env
 build/.env
+*.out
 Gopkg.lock
 vendor
 .idea

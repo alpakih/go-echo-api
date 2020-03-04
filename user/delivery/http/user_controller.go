@@ -29,7 +29,7 @@ func (c *userController) FindById(ctx echo.Context) error {
 	if err != nil {
 		return response.InternalServerError(ctx, utils.InternalServerError, nil, err.Error())
 	}
-	return response.SingleData(ctx, utils.OK, c.userMapper.Map(result), nil)
+	return response.SingleData(ctx, utils.OK, c.userMapper.Map(*result), nil)
 }
 
 func (c *userController) Store(ctx echo.Context) error {
@@ -92,7 +92,7 @@ func (c *userController) Update(ctx echo.Context) error {
 
 func (c *userController) Delete(ctx echo.Context) error {
 	id := ctx.Param("id")
-	err:=c.userRepository.Delete(id)
+	_,err:=c.userRepository.Delete(id)
 	if err !=nil {
 		return response.InternalServerError(ctx, utils.InternalServerError, nil, err.Error())
 	}
