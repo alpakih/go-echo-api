@@ -1,3 +1,7 @@
+[![Coverage Status](https://coveralls.io/repos/github/huzairuje/go-echo-api/badge.svg?branch=master)](https://coveralls.io/github/huzairuje/go-echo-api?branch=master)
+[![Build Status](https://travis-ci.org/huzairuje/go-echo-api.svg?branch=master)](https://travis-ci.org/huzairuje/go-echo-api)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # REST API Go (Echo HTTP Framework)
 
 ## Introduction
