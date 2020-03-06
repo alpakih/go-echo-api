@@ -98,5 +98,3 @@ func (c *userController) Delete(ctx echo.Context) error {
 	}
 	return response.SingleData(ctx, utils.OK,nil, nil)
 }
-
-
