@@ -1,7 +1,6 @@
 package main
 
 import (
-	"face-recognition-v2/http/validator"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -12,6 +11,7 @@ import (
 	jwtMiddleware "go-echo-api/middleware"
 	userHandler "go-echo-api/user/delivery/http"
 	userService "go-echo-api/user/usecase"
+	"go-echo-api/infrastructure/validator"
 	"net/http"
 	"os"
 	"path/filepath"
