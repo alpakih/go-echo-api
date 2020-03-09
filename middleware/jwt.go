@@ -4,7 +4,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/middleware"
-	"go-echo-api/entity"
+	"go-echo-api/models"
 	"os"
 	"path/filepath"
 	"time"
@@ -33,7 +33,7 @@ var IsLoggedIn = middleware.JWTWithConfig(
 		Claims:      jwt.MapClaims{},
 	})
 
-func GenerateTokenPair(user entity.User) (*string, *string, interface{}, error) {
+func GenerateTokenPair(user models.User) (*string, *string, interface{}, error) {
 
 	// Create token with claims
 	token := jwt.New(jwt.SigningMethodHS256)

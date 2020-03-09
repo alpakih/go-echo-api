@@ -3,7 +3,7 @@ package usecase
 import (
 	"github.com/jinzhu/gorm"
 	"go-echo-api/auth"
-	"go-echo-api/entity"
+	"go-echo-api/models"
 	"go-echo-api/utils"
 )
 
@@ -15,14 +15,14 @@ func NewAuthService(db *gorm.DB) auth.Repository {
 	return AuthService{db}
 }
 
-func (a AuthService) Login(email string) (entity.User, error) {
-	var model entity.User
+func (a AuthService) Login(email string) (models.User, error) {
+	var model models.User
 	err := a.DB.Find(&model, "email=?", email).Error
 	return model, err
 }
 
-func (a AuthService) Register(dto auth.RegisterDto) (entity.User, error) {
-	var model entity.User
+func (a AuthService) Register(dto auth.RegisterDto) (models.User, error) {
+	var model models.User
 	model.Name = dto.Name
 	model.Email = dto.Email
 	hashPassword, err := utils.HashPassword(dto.Password)

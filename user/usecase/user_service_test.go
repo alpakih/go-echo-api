@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"github.com/stretchr/testify/assert"
-	"go-echo-api/entity"
+	"go-echo-api/models"
 	"go-echo-api/infrastructure/database"
 	"go-echo-api/user"
 	"go-echo-api/utils"
@@ -32,7 +32,7 @@ func TestUserService_FindById(t *testing.T) {
 	defer database.CleanTestDB(db)
 
 	// create an instance of our test object
-	mockUser := entity.User{
+	mockUser := models.User{
 		ID:    "7dd77cc4-f786-4be0-b5a5-0c203b9c62c5",
 		Name:  "Uje",
 		Email: "uje@email.com",

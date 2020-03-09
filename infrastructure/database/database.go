@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"go-echo-api/entity"
+	"go-echo-api/models"
 	"os"
 )
 
@@ -37,6 +37,6 @@ func GetLinkDb() *gorm.DB {
 
 func AutoMigrate(db *gorm.DB) {
 	db.AutoMigrate(
-		entity.User{},
+		models.User{},
 	)
 }

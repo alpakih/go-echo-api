@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"github.com/jinzhu/gorm"
-	"go-echo-api/entity"
+	"go-echo-api/models"
 	"go-echo-api/user"
 	"go-echo-api/utils"
 )
@@ -15,14 +15,14 @@ func NewUserService(db *gorm.DB) user.Repository {
 	return UserService{db}
 }
 
-func (u UserService) FindAll() ([]entity.User, error) {
-	var model []entity.User
+func (u UserService) FindAll() ([]models.User, error) {
+	var model []models.User
 	err := u.DB.Find(&model).Error
 	return model, err
 }
 
-func (u UserService) FindById(id string) (*entity.User, error) {
-	var model entity.User
+func (u UserService) FindById(id string) (*models.User, error) {
+	var model models.User
 	model.ID = id
 	err := u.DB.First(&model).Error
 	if err != nil {
@@ -31,8 +31,8 @@ func (u UserService) FindById(id string) (*entity.User, error) {
 	return &model, err
 }
 
-func (u UserService) Save(dto user.Dto) (entity.User, error) {
-	var model entity.User
+func (u UserService) Save(dto user.Dto) (models.User, error) {
+	var model models.User
 	model.Name = dto.Name
 	model.Email = dto.Email
 	hashPassword, err := utils.HashPassword(dto.Password)
@@ -44,15 +44,15 @@ func (u UserService) Save(dto user.Dto) (entity.User, error) {
 	return model, err
 }
 
-func (u UserService) Update(id string, updateDto user.Dto) (entity.User, error) {
-	var model entity.User
+func (u UserService) Update(id string, updateDto user.Dto) (models.User, error) {
+	var model models.User
 	model.ID = id
 
 	hashPassword, err := utils.HashPassword(updateDto.Password)
 	if err != nil {
 		return model, err
 	}
-	err = u.DB.Model(&model).UpdateColumns(entity.User{
+	err = u.DB.Model(&model).UpdateColumns(models.User{
 		Name:     updateDto.Name,
 		Email:    updateDto.Email,
 		Password: hashPassword,
@@ -62,7 +62,7 @@ func (u UserService) Update(id string, updateDto user.Dto) (entity.User, error) 
 }
 
 func (u UserService) Delete(id string) (bool, error) {
-	var model entity.User
+	var model models.User
 	model.ID = id
 	isExisting, err := u.FindById(id)
 	if isExisting == nil {

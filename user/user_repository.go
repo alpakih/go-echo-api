@@ -1,13 +1,13 @@
 package user
 
 import (
-	 "go-echo-api/entity"
+	"go-echo-api/models"
 )
 
 type Repository interface {
-	FindAll() ([]entity.User, error)
-	FindById(id string) (*entity.User, error)
-	Save(dto Dto) (entity.User, error)
-	Update(id string, dto Dto) (entity.User, error)
+	FindAll() ([]models.User, error)
+	FindById(id string) (*models.User, error)
+	Save(dto Dto) (models.User, error)
+	Update(id string, dto Dto) (models.User, error)
 	Delete(id string) (bool, error)
 }

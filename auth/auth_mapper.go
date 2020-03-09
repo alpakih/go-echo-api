@@ -1,6 +1,6 @@
 package auth
 
-import "go-echo-api/entity"
+import "go-echo-api/models"
 
 type Mapper struct {
 	ID    string `json:"id"`
@@ -11,7 +11,7 @@ type Mapper struct {
 func NewAuthMapper() *Mapper {
 	return &Mapper{}
 }
-func (m *Mapper) Map(model entity.User) *Mapper {
+func (m *Mapper) Map(model models.User) *Mapper {
 	m.ID = model.ID
 	m.Name = model.Name
 	m.Email = model.Email

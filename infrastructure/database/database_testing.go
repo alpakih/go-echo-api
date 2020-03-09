@@ -6,7 +6,7 @@ import (
 	"github.com/DATA-DOG/go-txdb"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"go-echo-api/entity"
+	"go-echo-api/models"
 	"time"
 )
 
@@ -22,7 +22,7 @@ func PrepareTestDB(withName string) (*gorm.DB, error) {
 	if err != nil {
 		panic(err)
 	}
-	db.AutoMigrate(entity.User{})
+	db.AutoMigrate(models.User{})
 	return db, err
 }
 

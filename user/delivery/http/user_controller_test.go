@@ -1,7 +1,6 @@
 package http
 
 import (
-	"fmt"
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"
 	"go-echo-api/infrastructure/database"
@@ -77,7 +76,6 @@ func TestUserController_FindById(t *testing.T) {
 		c.SetParamNames("id")
 		c.SetParamValues("7dd77cc4-f786-4be0-b5a5-0c203b9c62c5")
 		if assert.NoError(t, controller.FindById(c)) {
-			fmt.Println("BODY ", rec.Body.String())
 			assert.Equal(t, http.StatusOK, rec.Code)
 		}
 	})
@@ -90,7 +88,6 @@ func TestUserController_FindById(t *testing.T) {
 		c.SetParamNames("id")
 		c.SetParamValues("not found")
 		if assert.NoError(t, controller.FindById(c)) {
-			fmt.Println("BODY ", rec.Body.String())
 			assert.Equal(t, http.StatusNotFound, rec.Code)
 		}
 	})
@@ -118,7 +115,6 @@ func TestUserController_Store(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 		if assert.NoError(t, controller.Store(c)) {
-			fmt.Println("BODY ", rec.Body.String())
 			assert.Equal(t, http.StatusOK, rec.Code)
 			assert.NotEqual(t, http.StatusInternalServerError, rec.Code)
 			assert.NotEqual(t, http.StatusUnprocessableEntity, rec.Code)
@@ -134,7 +130,6 @@ func TestUserController_Store(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 		if assert.NoError(t, controller.Store(c)) {
-			fmt.Println("BODY ", rec.Body.String())
 			assert.Equal(t, http.StatusUnprocessableEntity, rec.Code)
 		}
 	})
@@ -147,7 +142,6 @@ func TestUserController_Store(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 		if assert.NoError(t, controller.Store(c)) {
-			fmt.Println("BODY ", rec.Body.String())
 			assert.Equal(t, http.StatusBadRequest, rec.Code)
 		}
 	})
@@ -160,7 +154,6 @@ func TestUserController_Store(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 		if assert.NoError(t, controller.Store(c)) {
-			fmt.Println("BODY ", rec.Body.String())
 			assert.Equal(t, http.StatusInternalServerError, rec.Code)
 		}
 	})
