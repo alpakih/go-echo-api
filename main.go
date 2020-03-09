@@ -8,10 +8,10 @@ import (
 	authHandler "go-echo-api/auth/delivery/http"
 	authService "go-echo-api/auth/usecase"
 	"go-echo-api/infrastructure/database"
+	"go-echo-api/infrastructure/validator"
 	jwtMiddleware "go-echo-api/middleware"
 	userHandler "go-echo-api/user/delivery/http"
 	userService "go-echo-api/user/usecase"
-	"go-echo-api/infrastructure/validator"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -50,7 +50,7 @@ func main() {
 	auth.POST("/refresh-token", authController.RefreshToken)
 
 	//UserController
-	userController := userHandler.NewUserController(userService.NewUserService(db))
+	userController := userHandler.NewUserController(userService.NewUserService(db),db)
 	user := v1.Group("/user")
 	user.GET("", userController.FindAll, jwtMiddleware.IsLoggedIn)
 	user.GET("/:id", userController.FindById, jwtMiddleware.IsLoggedIn)
