@@ -6,6 +6,14 @@ type Meta struct {
 	Error   interface{} `json:"error"`
 }
 
+// APIError
+type APIError struct {
+	Code    int    `json:"code,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Field   string `json:"field,omitempty"`
+	Message string `json:"message"`
+}
+
 type Paginator struct {
 	Total  int64 `json:"total"`
 	Limit  int64 `json:"limit"`

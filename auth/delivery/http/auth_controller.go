@@ -1,6 +1,7 @@
 package http
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
@@ -76,7 +77,26 @@ func (c *authController) RefreshToken(ctx echo.Context) error {
 		RefreshToken string `json:"refresh_token"`
 	}
 	tokenReq := tokenReqBody{}
-	_ = ctx.Bind(&tokenReq)
+	if err := ctx.Bind(&tokenReq); err != nil {
+		errors := make([]echo.Map, 1)
+		if he, ok := err.(*echo.HTTPError); ok {
+			if ute, ok := he.Internal.(*json.UnmarshalTypeError); ok {
+				errors[0] = echo.Map{
+					"field":   ute.Field,
+					"message": ute.Error(),
+				}
+				return response.InternalServerError(ctx, utils.InternalServerError, errors, err.Error())
+			}
+			if se, ok := he.Internal.(*json.SyntaxError); ok {
+				errors[0] = echo.Map{
+					"error_type": "SyntaxError",
+					"message":    se.Error(),
+				}
+				return response.InternalServerError(ctx, utils.InternalServerError, errors, err.Error())
+			}
+		}
+		return response.InternalServerError(ctx, utils.InternalServerError, nil, err.Error())
+	}
 
 	// Parse takes the token string and a function for looking up the key.
 	// The latter is especially useful if you use multiple keys for your application.
